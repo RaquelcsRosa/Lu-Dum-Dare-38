@@ -8,7 +8,6 @@ public class BulletScript : MonoBehaviour
     public Transform orbita;
     private Vector3 zAxis = new Vector3(0, 0, 1);
     public bool playerFacingRight;
-    float gravityForce = 1000;
     float speed = 4f;
     float rotZ;
     void Start()

@@ -4,12 +4,21 @@ using UnityEngine;
 
 public class Player2Movement : MonoBehaviour
 {
-    Rigidbody2D rb;
-    float dirX;
-    float gravityForce = 1000;
-    float speed = 10;
+    [SerializeField]
+    float jumpSpeed;
+    [SerializeField]
+    Transform orbita;
+
     [HideInInspector]
     public bool facingRight;
+
+    Rigidbody2D rb;
+    private Vector3 zAxis = new Vector3(0, 0, 1);
+
+    float dirX;
+    float speed = 2;
+    bool colliding;
+    float rotZ;
 
     void Start()
     {
@@ -21,23 +30,29 @@ public class Player2Movement : MonoBehaviour
         if (Input.GetKey(KeyCode.RightArrow))
         {
             dirX = 1;
-            rb.velocity = transform.right * dirX * speed;
+            transform.RotateAround(orbita.position, zAxis, speed * dirX);
         }
         else if (Input.GetKey(KeyCode.LeftArrow))
         {
             dirX = -1;
-            rb.velocity = transform.right * dirX * speed;
+            transform.RotateAround(orbita.position, zAxis, speed * dirX);
         }
         else
         {
             dirX = 0;
         }
-        rb.AddForce(-transform.up * gravityForce, ForceMode2D.Force);
-
         if (dirX > 0f && facingRight)
             Flip();
         else if (dirX < 0f && !facingRight)
             Flip();
+    }
+
+    void OnCollisionEnter2D(Collision2D col)
+    {
+        if (col.gameObject.tag.Equals("Orbit"))
+        {
+            colliding = true;
+        }
     }
     void Flip()
     {

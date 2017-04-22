@@ -6,14 +6,18 @@ public class PlayerMovement : MonoBehaviour
 {
     [SerializeField]
     GameObject bulletPrefab;
-    Rigidbody2D rb;
-    Vector3 esq, dir;
-    float dirX;
-    float gravityForce = 1000;
-    float speed = 10;
+    [SerializeField]
+    Transform orbita;
+
     [HideInInspector]
     public bool facingRight;
 
+    Rigidbody2D rb;
+    private Vector3 zAxis = new Vector3(0, 0, 1);
+
+    float dirX;
+    float speed = 2;
+    float rotZ;
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -24,27 +28,26 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetKey(KeyCode.D))
         {
             dirX = 1;
-            rb.velocity = transform.right * dirX * speed;
+            transform.RotateAround(orbita.position, zAxis, speed * dirX);
         }
         else if (Input.GetKey(KeyCode.A))
         {
             dirX = -1;
-            rb.velocity = transform.right * dirX * speed;
+            transform.RotateAround(orbita.position, zAxis, speed * dirX);
         }
         else
         {
             dirX = 0;
         }
-
-        rb.AddForce(-transform.up * gravityForce, ForceMode2D.Force);
+        
         if(Input.GetKeyDown(KeyCode.Space))
         {
             SpawnBullet(facingRight);
         }
 
-        if (dirX > 0f && facingRight)
+        if (dirX > 0f && !facingRight)
             Flip();
-        else if (dirX < 0f && !facingRight)
+        else if (dirX < 0f && facingRight)
             Flip();
     }
 

@@ -20,10 +20,10 @@ public class BoomerangScript : MonoBehaviour {
 
 	void Start ()
 	{
-        player = GameObject.FindGameObjectWithTag("Player").transform;
+        player = GameObject.FindGameObjectWithTag("player2").transform;
         orbita = GameObject.FindGameObjectWithTag("Orbit").transform;
-        basePos = GameObject.FindGameObjectWithTag("Hand").transform;
-        pm = GameObject.FindGameObjectWithTag("Player").GetComponent<Player2Movement>();
+        basePos = GameObject.FindGameObjectWithTag("Hand2").transform;
+        pm = GameObject.FindGameObjectWithTag("player2").GetComponent<Player2Movement>();
 		esq = new Vector3 (-0.13f, -0.13f, 0.13f);
 		dir = new Vector3 (0.13f, 0.13f, 0.13f);
 	}
