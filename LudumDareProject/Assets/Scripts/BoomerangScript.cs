@@ -8,7 +8,7 @@ public class BoomerangScript : MonoBehaviour {
 	public Transform basePos;
 	public Transform player;
 
-	public PlayerMovement pm;
+	public Player2Movement pm;
 
 	private Vector3 zAxis = new Vector3(0, 0, 1);
 	Vector3 esq, dir;
@@ -23,7 +23,7 @@ public class BoomerangScript : MonoBehaviour {
         player = GameObject.FindGameObjectWithTag("Player").transform;
         orbita = GameObject.FindGameObjectWithTag("Orbit").transform;
         basePos = GameObject.FindGameObjectWithTag("Hand").transform;
-        pm = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>();
+        pm = GameObject.FindGameObjectWithTag("Player").GetComponent<Player2Movement>();
 		esq = new Vector3 (-0.13f, -0.13f, 0.13f);
 		dir = new Vector3 (0.13f, 0.13f, 0.13f);
 	}
@@ -39,7 +39,7 @@ public class BoomerangScript : MonoBehaviour {
 			break;
 		}
 
-		if (Input.GetKeyDown (KeyCode.L)) {
+		if (Input.GetKeyDown (KeyCode.Return)) {
 			lancado = true;
 		}
 	}

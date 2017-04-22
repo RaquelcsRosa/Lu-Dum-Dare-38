@@ -46,9 +46,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Boomerang\BoomerangScript.cs" />
-     <Compile Include="Assets\BulletScript.cs" />
-     <Compile Include="Assets\PlayerMovement.cs" />
+     <Compile Include="Assets\Scripts\BoomerangScript.cs" />
+     <Compile Include="Assets\Scripts\BulletScript.cs" />
+     <Compile Include="Assets\Scripts\Player2Movement.cs" />
+     <Compile Include="Assets\Scripts\PlayerMovement.cs" />
  <Reference Include="Facebook.Unity.Settings">
  <HintPath>C:/Users/usuario/Documents/Ludum-Dare-38/LudumDareProject/Library/FacebookSDK/Facebook.Unity.Settings.dll</HintPath>
  </Reference>

@@ -2,12 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour
+public class Player2Movement : MonoBehaviour
 {
-    [SerializeField]
-    GameObject bulletPrefab;
     Rigidbody2D rb;
-    Vector3 esq, dir;
     float dirX;
     float gravityForce = 1000;
     float speed = 10;
@@ -21,26 +18,27 @@ public class PlayerMovement : MonoBehaviour
 
     void FixedUpdate()
     {
-        dirX = Input.GetAxis("Horizontal");
-
-        rb.velocity = transform.right * dirX * speed;
-        rb.AddForce(-transform.up * gravityForce, ForceMode2D.Force);
-        if(Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKey(KeyCode.RightArrow))
         {
-            SpawnBullet(facingRight);
+            dirX = 1;
+            rb.velocity = transform.right * dirX * speed;
         }
+        else if (Input.GetKey(KeyCode.LeftArrow))
+        {
+            dirX = -1;
+            rb.velocity = transform.right * dirX * speed;
+        }
+        else
+        {
+            dirX = 0;
+        }
+        rb.AddForce(-transform.up * gravityForce, ForceMode2D.Force);
 
         if (dirX > 0f && facingRight)
             Flip();
         else if (dirX < 0f && !facingRight)
             Flip();
     }
-
-    void SpawnBullet(bool playerLookingDirection)
-    {
-        GameObject bullet = (GameObject)Instantiate(bulletPrefab, this.transform.position, this.transform.rotation);
-    }
-
     void Flip()
     {
         Vector3 scale = transform.localScale;
