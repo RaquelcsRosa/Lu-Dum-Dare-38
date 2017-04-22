@@ -14,10 +14,11 @@ public class Player2Movement : MonoBehaviour
 
     Rigidbody2D rb;
     private Vector3 zAxis = new Vector3(0, 0, 1);
+    Vector3 jumpPosition;
 
     float dirX;
     float speed = 2;
-    bool colliding;
+    bool jumping;
     float rotZ;
 
     void Start()
@@ -41,18 +42,31 @@ public class Player2Movement : MonoBehaviour
         {
             dirX = 0;
         }
+
+        if (Input.GetKey(KeyCode.UpArrow) && !jumping)
+        {
+            jumping = true;
+            StartCoroutine(JumpUp());
+        }
         if (dirX > 0f && facingRight)
             Flip();
         else if (dirX < 0f && !facingRight)
             Flip();
     }
-
-    void OnCollisionEnter2D(Collision2D col)
+    
+    IEnumerator JumpUp()
     {
-        if (col.gameObject.tag.Equals("Orbit"))
+        jumpPosition = this.transform.position;
+        for (int i = 0; i <= 10; i++)
         {
-            colliding = true;
+            this.transform.position += transform.up * i / 90 * 2;
+            yield return new WaitForSeconds(0.01f);
         }
+        while (this.transform.position != jumpPosition)
+        {
+            this.transform.position = Vector3.MoveTowards(this.transform.position, jumpPosition, 1);
+        }
+        jumping = false;
     }
     void Flip()
     {

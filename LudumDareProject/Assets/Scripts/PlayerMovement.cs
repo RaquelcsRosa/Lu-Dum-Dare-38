@@ -14,10 +14,13 @@ public class PlayerMovement : MonoBehaviour
 
     Rigidbody2D rb;
     private Vector3 zAxis = new Vector3(0, 0, 1);
+    Vector3 jumpPosition;
 
     float dirX;
     float speed = 2;
     float rotZ;
+    bool jumping = false;
+    bool jumped = false;
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -39,7 +42,12 @@ public class PlayerMovement : MonoBehaviour
         {
             dirX = 0;
         }
-        
+
+        if (Input.GetKey(KeyCode.W) && !jumping)
+        {
+            jumping = true;
+            StartCoroutine(JumpUp());
+        }
         if(Input.GetKeyDown(KeyCode.Space))
         {
             SpawnBullet(facingRight);
@@ -56,6 +64,20 @@ public class PlayerMovement : MonoBehaviour
         GameObject bullet = (GameObject)Instantiate(bulletPrefab, this.transform.position, this.transform.rotation);
     }
 
+    IEnumerator JumpUp()
+    {
+        jumpPosition = this.transform.position;
+        for (int i = 0; i <= 10; i++)
+        {
+            this.transform.position += transform.up * i/90 * 2;
+            yield return new WaitForSeconds(0.01f);
+        }
+        while (this.transform.position != jumpPosition)
+        {
+            this.transform.position = Vector3.MoveTowards(this.transform.position, jumpPosition, 1);
+        }
+        jumping = false;
+    }
     void Flip()
     {
         Vector3 scale = transform.localScale;
