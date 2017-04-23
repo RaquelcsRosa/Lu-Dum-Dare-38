@@ -72,7 +72,7 @@ public class BoomerangScript : MonoBehaviour {
 
 	void OnTriggerEnter2D(Collider2D col)
 	{
-		if (col.tag == "Player") 
+		if (col.tag == "player2") 
 		{
 			if (speed == -2f) {
 				if (pm.facingRight) {

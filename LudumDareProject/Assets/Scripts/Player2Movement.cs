@@ -48,9 +48,9 @@ public class Player2Movement : MonoBehaviour
             jumping = true;
             StartCoroutine(JumpUp());
         }
-        if (dirX > 0f && facingRight)
+        if (dirX > 0f && !facingRight)
             Flip();
-        else if (dirX < 0f && !facingRight)
+        else if (dirX < 0f && facingRight)
             Flip();
     }
     
@@ -62,9 +62,10 @@ public class Player2Movement : MonoBehaviour
             this.transform.position += transform.up * i / 90 * 2;
             yield return new WaitForSeconds(0.01f);
         }
-        while (this.transform.position != jumpPosition)
+        for (int i = 0; i <= 10; i++)
         {
-            this.transform.position = Vector3.MoveTowards(this.transform.position, jumpPosition, 1);
+            this.transform.position -= transform.up * i / 90 * 2;
+            yield return new WaitForSeconds(0.01f);
         }
         jumping = false;
     }

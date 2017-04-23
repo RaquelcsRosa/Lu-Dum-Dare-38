@@ -72,9 +72,10 @@ public class PlayerMovement : MonoBehaviour
             this.transform.position += transform.up * i/90 * 2;
             yield return new WaitForSeconds(0.01f);
         }
-        while (this.transform.position != jumpPosition)
+        for (int i = 0; i <= 10; i++)
         {
-            this.transform.position = Vector3.MoveTowards(this.transform.position, jumpPosition, 1);
+            this.transform.position -= transform.up * i / 90 * 2;
+            yield return new WaitForSeconds(0.01f);
         }
         jumping = false;
     }
